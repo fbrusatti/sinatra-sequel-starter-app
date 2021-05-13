@@ -1,3 +1,4 @@
+
 require './models/init.rb'
 
 class App < Sinatra::Base
@@ -8,6 +9,20 @@ class App < Sinatra::Base
   get "/hello/:name" do
    @name = params[:name]
    erb :hello_template
+  end
+ post "/careers" do
+  data = JSON.parse request.body.read
+  career = Carrer.new(name:data['name'])
+    if career.save
+      [201,{'location' => "careers/#{career.id}"},'CREATED ']
+    else
+      [500,{},'Internal Server Error' ]
+    end
+ end
+
+
+  get '/careers' do
+    Career.all.map{|c| c.name}
   end
 
   post "/posts" do
@@ -26,4 +41,3 @@ class App < Sinatra::Base
     p.description
   end
 end
-
