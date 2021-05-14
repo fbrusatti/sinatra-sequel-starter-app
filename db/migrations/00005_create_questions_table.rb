@@ -1,10 +1,9 @@
 Sequel.migration do
     up do
       create_table(:questions) do
-        primary_key   :id
+        primary_key   :number
         String        :name
-        String        :description,
-        Int           :number,
+        String        :description
         String        :type
         DateTime      :created_at,   default: Sequel::CURRENT_TIMESTAMP
         DateTime      :updated_at,   default: Sequel::CURRENT_TIMESTAMP
