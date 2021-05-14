@@ -6,6 +6,8 @@ Sequel.migration do
         String        :description,
         Int           :number,
         String        :type
+        DateTime      :created_at,   default: Sequel::CURRENT_TIMESTAMP
+        DateTime      :updated_at,   default: Sequel::CURRENT_TIMESTAMP
       end
     end
   
