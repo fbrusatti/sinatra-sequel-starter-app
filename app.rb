@@ -1,4 +1,3 @@
-
 require './models/init.rb'
 
 class App < Sinatra::Base
