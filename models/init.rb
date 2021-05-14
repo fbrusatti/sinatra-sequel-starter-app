@@ -1,4 +1,6 @@
-require_relative 'career'
 require_relative 'post'
-require_relative 'question'
+require_relative 'career'
 require_relative 'survey'
+require_relative 'question'
+require_relative 'choise'
+require_relative 'outcome'
