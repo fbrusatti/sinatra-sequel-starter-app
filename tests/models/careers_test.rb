@@ -11,4 +11,12 @@ require File.expand_path  '../../test_helper.rb', __FILE__
 
 			assert_equal(career.survey.count, 3)
 		end
+
+		def test_career_has_name_validator
+			career = Career.new
+
+			career.name = ''
+
+			assert_equal career.valid?, false
+		end
 	end
