@@ -9,19 +9,21 @@ class App < Sinatra::Base
    @name = params[:name]
    erb :hello_template
   end
- post "/careers" do
-  data = JSON.parse request.body.read
-  career = Carrer.new(name:data['name'])
-    if career.save
-      [201,{'location' => "careers/#{career.id}"},'CREATED ']
-    else
-      [500,{},'Internal Server Error' ]
-    end
- end
 
+  get "/show_careers" do
+    @careers = Career.all
 
-  get '/careers' do
-    Career.all.map{|c| c.name}
+    erb :careers_template
+  end
+
+  post "/create_career" do
+    career = Career.new(name:params[:name])
+
+      if career.save
+        [201,{'location' => "/show_careers"}, 'CREATED']
+      else
+        [500,{}, 'Internal Server Error']
+      end
   end
 
   post "/posts" do
