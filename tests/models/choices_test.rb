@@ -20,7 +20,4 @@ require File.expand_path  '../../test_helper.rb', __FILE__
 
 			assert_equal(choice.outcomes.count, 2)
 		end
-
-
-
-  		end
+  	end
