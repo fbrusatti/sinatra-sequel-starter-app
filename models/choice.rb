@@ -5,8 +5,8 @@ class Choice < Sequel::Model
 
 	one_to_one :responses
 
-  def validate
-    super
-    errors.add(:text, 'cannot be empty') if !text || text.empty?
-  end
+  	def validate
+    	super
+    	errors.add(:text, 'cannot be empty') if !text || text.empty?
+  	end
 end

@@ -4,15 +4,23 @@ require File.expand_path  '../../test_helper.rb', __FILE__
 	class ChoicesTest < MiniTest::Unit::TestCase
 		MiniTest::Unit::TestCase
 
+		#se valida que un choice no puede tener un text vacio
 	 	def test_choices_must_has_text
-
-
-		#	choices = Choice.create(text:'answer question 1')
+	 		choice = Choice.new
+	 		choice.text = ''
+	 		assert_equal choice.valid?,false
 
 		end
 		def test_choices_has_many_outcome
 
-		#	choices = Choice.create(text:'answer question 1')
+			choice = Choice.create(text:'new_text')
 
+			Outcome.create(choice_id: choice.id)
+			Outcome.create(choice_id: choice.id)
+
+			assert_equal(choice.outcomes.count, 2)
 		end
-	end
+
+
+
+  		end
