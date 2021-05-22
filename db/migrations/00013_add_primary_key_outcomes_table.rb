@@ -6,7 +6,5 @@ Sequel.migration do
     end
 
     down do
-        drop_column :careers, :career_id
-        drop_column :choices, :choice_id
     end
 end
