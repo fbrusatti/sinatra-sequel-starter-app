@@ -20,4 +20,15 @@ require File.expand_path  '../../test_helper.rb', __FILE__
 
 			assert_equal(choice.outcomes.count, 2)
 		end
+		# una choice corresponde a un response
+		# def test_choice_has_one_response
+
+		#	choice = Choice.create(text:'new_text')
+
+		#	r = Response.new
+		#	r.choice_id = choice.id
+		#	assert_equal choice.response.id,r.id
+		#end
+
+
   	end
