@@ -1,8 +1,7 @@
 Sequel.migration do
   up do
     create_table(:outcomes) do
-      
-          end
+    end
   end
 
   down do
