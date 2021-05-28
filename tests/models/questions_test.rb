@@ -10,4 +10,34 @@ require File.expand_path  '../../test_helper.rb', __FILE__
 
 			assert_equal(question.choices.count, 3)
 		end
+		def test_question_has_many_responses
+			question = Question.create(name:'question2',description:'answer question2',type:'numeric')
+
+			Response.create(question_id: question.id)
+			Response.create(question_id: question.id)
+			Response.create(question_id: question.id)
+
+			assert_equal(question.responses.count, 3)
+		end
+
+		def test_career_has_name_validator
+			question = Question.new
+
+			question.name = ''
+
+			assert_equal question.valid?, false
+		end
+
+		# def test_career_has_description_validator
+		#	question = Question.new
+		#
+		#	question.description = ''
+		#
+		#	assert_equal description.valid?, false
+		#end
+
+
+
+
+
 	end
