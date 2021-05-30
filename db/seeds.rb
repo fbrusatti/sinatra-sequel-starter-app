@@ -1,8 +1,10 @@
-# Questions
+# Clean data
+Survey.all.map { |survey| survey.destroy }
+Career.all.map { |career| career.destroy }
 Choice.all.map { |choice| choice.destroy }
-
 Question.all.map { |question| question.destroy }
 
+# Questions
 Question.create(
     name: 'Me trasladaría a una zona agrícola - ganadera para ejercer mi profesión.',
     description: 'Con relacion a Agronomia, Veterinaria'
@@ -68,9 +70,6 @@ priority = Question.create(
 )
 
 # Choices
-
-Choice.all.map { |choice| choice.destroy }
-
 Choice.create(
     text: 'La importancia de la expresión artística en el desarrollo de la identidad de los pueblos.',
     question_id: blog.id
@@ -127,9 +126,6 @@ Choice.create(
 )
 
 # Careers
-
-Career.all.map { |career| career.destroy }
-
 Career.create(name: 'Arquitectura')
 Career.create(name: 'Arte')
 Career.create(name: 'Computación')
@@ -150,9 +146,6 @@ agronomia = Career.create(name: 'Agronomia')
 veterinaria = Career.create(name: 'Veterinaria')
 
 # Surveys
-
-Survey.all.map { |survey| survey.destroy }
-
 Survey.create(username: 'Franco', career_id: veterinaria.id)
 Survey.create(username: 'Gonza', career_id: agronomia.id)
 Survey.create(username: 'Mati', career_id: quimica.id)
