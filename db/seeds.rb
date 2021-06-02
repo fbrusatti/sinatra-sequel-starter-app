@@ -186,7 +186,6 @@ math_career = Career.create(name: 'Matemáticas')
 medicine_career = Career.create(name: 'Medicina')
 sociology_career = Career.create(name: 'Sociología')
 periodism_career = Career.create(name: 'Periodismo')
-
 chimesrty_career = Career.create(name: 'Química')
 agronomy_career = Career.create(name: 'Agronomia')
 veterinary_career = Career.create(name: 'Veterinaria')

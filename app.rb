@@ -26,6 +26,17 @@ class App < Sinatra::Base
       end
   end
 
+  get "/make_survey/finish" do
+    @params = params
+    erb :example_template
+  end
+
+  get '/make_survey' do
+    @questions = Question.all
+
+    erb :survey_template
+  end
+
   post "/posts" do
     request.body.rewind  # in case someone already read it
     data = JSON.parse request.body.read
