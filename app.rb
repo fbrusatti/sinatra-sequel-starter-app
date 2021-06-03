@@ -26,9 +26,33 @@ class App < Sinatra::Base
       end
   end
 
-  get "/make_survey/finish" do
-    @params = params
-    erb :example_template
+  post "/make_survey/finish" do
+    params = JSON.parse request.body.read
+
+    Response.all.each do |response|
+      response.destroy
+    end
+
+    params.each do |data|
+      newResponse = Response.new(choice_id: data['choiceId'], question_id: data['questionId'])
+
+      newResponse.save
+    end
+
+    outcomes = Outcome.all
+    responses = Response.all
+
+    results = []
+
+    responses.each do |response|
+      outcomes.each do |outcome|
+        if outcome.choice_id == response.choice_id
+            results.push(outcome.career_id)
+        end
+      end
+    end
+
+    results.to_s
   end
 
   get '/make_survey' do

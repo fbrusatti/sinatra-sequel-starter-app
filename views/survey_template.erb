@@ -66,43 +66,33 @@
 </html>
 
 <script>
-    function sendForm() {
-        const choicesSelected = getChoicesSelected();
+function sendForm() {
+    const choicesSelected = getChoicesSelected();
 
-        redirectTo('finish', choicesSelected);
-    }
+    makeRequest('POST', '/make_survey/finish', choicesSelected);
+}
 
-    function getChoicesSelected() {
-        const inputsInHTML = document.getElementsByTagName('input');
+function getChoicesSelected() {
+    const inputsInHTML = document.getElementsByTagName('input');
 
-        const inputsInHTMLInArray = Array.prototype.slice.call(inputsInHTML, 0);
+    const inputsInHTMLInArray = Array.prototype.slice.call(inputsInHTML, 0);
 
-        const choicesSelectedInHTML = inputsInHTMLInArray.filter(inputInHTML => inputInHTML.checked);
+    const choicesSelectedInHTML = inputsInHTMLInArray.filter(inputInHTML => inputInHTML.checked);
 
-        return choicesSelectedInHTML.map(choiceInHTML => ({
-            ...choiceInHTML.dataset
-        }));
-    }
+    return choicesSelectedInHTML.map(choiceInHTML => ({
+        ...choiceInHTML.dataset
+    }));
+}
 
-    function redirectTo(route, data) {
-        const params = getQueryParams(data);
+function makeRequest(method, action, params) {
+    const xhr = new XMLHttpRequest();
 
-        window.location.href = `${window.location.href}/${route}?${params}`;
-    }
+    xhr.open(method, action);
 
-    function getQueryParams(data) {
-        let paramsURL = '';
+    xhr.setRequestHeader('Content-Type', 'application/json');
 
-        data.forEach((element, index) => {
-            const param = `params[]=${JSON.stringify(element)}`;
-
-            paramsURL += index
-                ? `&${param}`
-                : param
-        });
-
-        return paramsURL;
-    }
+    xhr.send(JSON.stringify(params));
+}
 </script>
 
 <style>
