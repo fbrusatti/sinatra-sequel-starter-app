@@ -9,18 +9,12 @@
 
     <body class="page">
         <div id="create-survey" class="box">
-            <label for="username">Nombre:</label>
-            <input id="username" type="text" placeholder="Pepito" />
-
-            <button>
-                Agregar
-            </button>
-        </div>
 
 
-            <button onclick="sendForm()" style="width: 24rem; height: 3rem; cursor: pointer;">
+        <button onclick="sendForm()" style="width: 24rem; height: 3rem; cursor: pointer;">
                         Registrar respuesta
                     </button>
+        </div>
         <div class="container">
             <form>
                 <% @questions.each do |question| %>
@@ -183,8 +177,9 @@ function makeRequest(method, action, params) {
     }
 
     #create-survey {
+        
         width: 50%;
-
+        height: 10rem;
         justify-content: center;
     }
 

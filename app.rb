@@ -2,7 +2,7 @@ require './models/init.rb'
 
 class App < Sinatra::Base
   get '/' do
-    "Hello World"
+    erb :login_template
   end
 
   get "/hello/:name" do
@@ -57,8 +57,12 @@ class App < Sinatra::Base
 
   get '/make_survey' do
     @questions = Question.all
-
+    @newSurvey = Survey.create(username: params[:username])
     erb :survey_template
+
+    #params[:username]
+    #survey = Survey.new(username:params[:username])
+
   end
 
   post "/posts" do

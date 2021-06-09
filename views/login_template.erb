@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>VOCATIONAL-TEST</title>
+  </head>
+  <body>
+    <div class="fondo">
+      <div class="login-box">
+        <h1>
+          <p style = "font-family:courier,arial,helvética;">
+            Bienvenido a VOCATIONAL-TEST
+          </p>
+        </h1>
+        <form>
+          <!-- USERNAME INPUT -->
+          <label for="username">Username:</label>
+          <input  id ="nombreUsuario" placeholder="Ingrese un nombre">
+          <input type="button" value="Realizar Test" onclick="redirection()">
+        </form>
+      </div>
+    </div>
+  </body>
+</html>
+
+<script>
+  const getValueInput = () =>{
+    return document.getElementById("nombreUsuario").value; 
+  }
+function redirection(){
+  let valorParam = getValueInput();
+  window.location.href='/make_survey?username=' + valorParam  ;
+}
+
+</script>
+
+<style >
+
+  body {
+  margin: 0;
+  padding: 0;
+  background-size: cover;
+  font-family: sans-serif;
+  height: 100vh;
+  }
+.fondo{
+background: url('imagenFond.jpg') #20B2AA ;
+height: 700px;
+}
+
+.login-box {
+  width: 320px;
+  height: 420px;
+  background: #000;
+  color: #fff;
+  top: 50%;
+  left: 50%;
+  position: absolute;
+  transform: translate(-50%, -50%);
+  box-sizing: border-box;
+  padding: 70px 30px;
+}
+
+.login-box h1 {
+  margin: 0;
+  padding: 0 0 20px;
+  text-align: center;
+  font-size: 25px;
+}
+
+.login-box label {
+  margin: 0;
+  padding: 0;
+  color: #fff;
+  font-weight: bold;
+  display: block;
+}
+
+.login-box input {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.login-box input[type="text"] {
+  border: none;
+  border-bottom: 1px solid #fff;
+  background: transparent;
+  outline: none;
+  height: 40px;
+  color: #fff;
+  font-size: 16px;
+}
+
+.login-box input[type="button"] {
+  border: none;
+  outline: none;
+  width: 100%;
+
+  height: 40px;
+  background: #4682B4 ;
+  color: #fff;
+  font-size: 18px;
+  border-radius: 20px;
+}
+
+.login-box input[type="button"]:hover{
+  cursor: pointer;
+  background: #FFFAFA ;
+  color: #000;
+}
+
+.login-box a {
+  text-decoration: none;
+  font-size: 12px;
+  line-height: 20px;
+  color: darkgrey;
+}
+
+.login-box a:hover {
+  color: #fff;
+}
+
+
+
+
+</style>
