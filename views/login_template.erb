@@ -5,11 +5,10 @@
     <title>VOCATIONAL-TEST</title>
   </head>
   <body>
-    <div class="fondo">
       <div class="login-box">
         <h1>
           <p style = "font-family:courier,arial,helvética;">
-            Bienvenido a VOCATIONAL-TEST
+            Bienvenido a |VOCATIONAL-TEST|
           </p>
         </h1>
         <form>
@@ -18,7 +17,6 @@
           <input  id ="nombreUsuario" placeholder="Ingrese un nombre">
           <input type="button" value="Realizar Test" onclick="redirection()">
         </form>
-      </div>
     </div>
   </body>
 </html>
@@ -39,22 +37,21 @@ function redirection(){
   body {
   margin: 0;
   padding: 0;
+  background: url(../img/bg.jpeg) no-repeat center top #2c3e50;
   background-size: cover;
   font-family: sans-serif;
   height: 100vh;
   }
-.fondo{
-background: url('imagenFond.jpg') #20B2AA ;
-height: 700px;
-}
+
 
 .login-box {
-  width: 320px;
+ width: 320px;
   height: 420px;
-  background: #000;
-  color: #fff;
+  background: #fff;
+  color: #2c3e50;
   top: 50%;
   left: 50%;
+  box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
   position: absolute;
   transform: translate(-50%, -50%);
   box-sizing: border-box;
@@ -71,7 +68,7 @@ height: 700px;
 .login-box label {
   margin: 0;
   padding: 0;
-  color: #fff;
+  color: #2c3e50;
   font-weight: bold;
   display: block;
 }
@@ -97,7 +94,7 @@ height: 700px;
   width: 100%;
 
   height: 40px;
-  background: #4682B4 ;
+  background: #2c3e50 ;
   color: #fff;
   font-size: 18px;
   border-radius: 20px;
@@ -105,7 +102,7 @@ height: 700px;
 
 .login-box input[type="button"]:hover{
   cursor: pointer;
-  background: #FFFAFA ;
+  background: silver ;
   color: #000;
 }
 
