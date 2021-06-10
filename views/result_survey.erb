@@ -9,20 +9,23 @@
 
     <body class="page">
         <div class="container">
-            <h1 class="title-survey">
+            <h1 class="title">
                 Genial <span>Nombre</span>!
             </h1>
 
-            <p class="info-survey">
-                Los puntajes segun la carrera fueron:
-                <ul>
-                    <% @results.each do |result| %>
-                        <li>
-                            <%= result['name'] %> = <%= result['points'] %>
-                        </li>
-                    <% end %>
-                </ul>
-            </p>
+            <div class="points">
+                <p> Los puntajes segun la carrera fueron: </p>
+
+                <div class="box">
+                    <ul>
+                        <% @results.each do |result| %>
+                            <li class="info">
+                                <%= result['name'] %> = <%= result['points'] %>
+                            </li>
+                        <% end %>
+                    </ul>
+                </div>
+            </div>
         </div>
 
         <button>
@@ -32,6 +35,14 @@
 </html>
 
 <style>
+    ul {
+        list-style-type: none;
+    }
+
+    li {
+        margin: 1rem 0;
+    }
+
     .page {
         background-color: #bdc3c7;
 
@@ -49,9 +60,6 @@
 
         border-radius: 1rem;
 
-        display: flex;
-        flex-direction: column;
-
         background-color: #2c3e50;
 
         border: 3px solid #ecf0f1;
@@ -61,72 +69,22 @@
         margin: 1rem auto;
     }
 
-    #username {
-        border: 1px solid;
-
-        margin-top: 1rem;
-
-        width: 95%;
-        height: 2rem;
-
-        border-radius: 10px;
-
-        border-color: #95a5a6;
-
-        padding: 0 10px;
-
-        font-size: 1.2rem;
-
-        font-weight: bold;
-    }
-
-    form {
-        display: flex;
-        flex-direction: column;
-
-    }
-
-    h2 {
-        font-weight: normal;
-
-        font-size: 20px;
-
+    .info {
         margin: 1rem;
-    }
-
-    .form-group {
-        display: flex;
-        flex-direction: row;
-
-        align-items: center;
-
-        justify-content: space-between;
-
-        margin: 1rem;
-
         padding: 1rem;
-
         border-radius: 10px;
 
         background-color: #34495e;
 
         font-weight: lighter;
         font-size: 16px;
-    }
-
-    .form-group-label {
-        width: 70%;
-    }
-
-    #create-survey {
-        width: 50%;
-        height: 10rem;
-        justify-content: center;
+        color: #ecf0f1;
+        text-align: start;
     }
 
     button {
         padding: 0.5rem;
-        margin: 0.5rem auto;
+        margin: auto;
 
         border-radius: 10px;
 
@@ -145,12 +103,6 @@
         cursor: pointer
     }
 
-    .choice {
-        display: flex;
-        flex-direction: row;
-
-    }
-
     .container {
         display: flex;
         flex-direction: column;
@@ -158,7 +110,7 @@
         align-content: center;
     }
 
-    .title-survey {
+    .title {
         width: 60%;
         margin: 1rem auto;
         padding: 1rem;
@@ -172,8 +124,8 @@
         font-weight: bold;
     }
 
-    .info-survey {
-        width: 30%;
+    .points {
+        width: 60%;
         margin: auto;
         padding: 1rem;
 
