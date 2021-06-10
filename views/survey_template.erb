@@ -86,7 +86,29 @@ function getChoicesSelected() {
 }
 
 function makeRequest(method, action, data) {
+    const xhr = new XMLHttpRequest();
 
+    xhr.onreadystatechange = function () {
+        if (this.readyState !== 4) return;
+
+        if (this.status !== 200) return;
+
+        const data = JSON.parse(this.responseText);
+
+        results = data.sort((a, b) => b.points - a.points);
+
+        redirectTo('/show_survey', results);
+    };
+
+    xhr.open(method, action);
+
+    xhr.setRequestHeader('Content-Type', 'application/json');
+
+    xhr.send(JSON.stringify(data));
+}
+
+function redirectTo(url, data) {
+    window.location.href = `${url}?results=${encodeURIComponent(JSON.stringify(data))}`;
 }
 </script>
 
