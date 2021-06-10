@@ -26,43 +26,71 @@ class App < Sinatra::Base
       end
   end
 
-  post "/make_survey/finish" do
-    params = JSON.parse request.body.read
+  get "/finish_survey" do
+    choicesSelected = params[:choices]
 
+    # clearCache()
+
+    # createResponsesFromChoices(choicesSelected)
+
+    # points = getPoints();
+
+    # results = getCareersWithPoints(points);
+
+    choicesSelected.to_s
+  end
+
+  def clearCache()
     Response.all.each do |response|
       response.destroy
     end
+  end
 
-    params.each do |data|
-      newResponse = Response.new(choice_id: data['choiceId'], question_id: data['questionId'])
-
-      newResponse.save
+  def createResponsesFromChoices(choices)
+    choices.each do |choice|
+      Response.create(choice_id: choice['choiceId'].to_i, question_id: choice['questionId'].to_i)
     end
+  end
 
+  def getPoints()
     outcomes = Outcome.all
     responses = Response.all
 
-    results = []
+    careersPoints = {}
 
     responses.each do |response|
       outcomes.each do |outcome|
         if outcome.choice_id == response.choice_id
-            results.push(outcome.career_id)
+            careersPoints[outcome.career_id] = careersPoints[outcome.career_id].to_i + 1
         end
       end
     end
 
-    results.to_s
+    return careersPoints
+  end
+
+  def getCareersWithPoints(careersPoints)
+    careers = Career.all
+
+    results = []
+
+    careersPoints.each do |key, points|
+      careers.each do |career|
+        if key == career.id
+          results.push({career_id: career.id, name: career.name, points: points})
+        end
+      end
+    end
+
+    return results
   end
 
   get '/make_survey' do
     @questions = Question.all
-    @newSurvey = Survey.create(username: params[:username])
+
+    @survey = Survey.create(username: params[:username])
+
     erb :survey_template
-
-    #params[:username]
-    #survey = Survey.new(username:params[:username])
-
   end
 
   post "/posts" do
