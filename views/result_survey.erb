@@ -10,7 +10,7 @@
     <body class="page">
         <div class="container">
             <h1 class="title">
-                Genial <span class="username"><%= @survey.username %></span>!
+                Genial <span class="username"><%= @username %></span>!
             </h1>
 
             <div class="points">
@@ -34,10 +34,10 @@
     </body>
 </html>
 <script>
- function reloadTest(){
-  window.location.href='/';
- }
-</script>    
+    function reloadTest(){
+        window.location.href='/';
+    }
+</script>
 
 <style>
     ul {
@@ -129,8 +129,7 @@
         font-weight: bold;
     }
     .username{
-     font-weight: bold;
-
+        font-weight: bold;
     }
 
     .points {

@@ -75,6 +75,8 @@ class App < Sinatra::Base
   get '/show_survey' do
     @results = JSON.parse params[:results]
 
+    @username = params[:username]
+
     erb :result_survey
   end
 end

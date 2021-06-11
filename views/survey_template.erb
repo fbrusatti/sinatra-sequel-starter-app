@@ -10,7 +10,7 @@
     <body class="page">
         <div class="container">
             <h1 class="title-survey">
-                ¡Bienvenido <span class="Nombre"><%= @survey.username %></span>!
+                ¡Bienvenido <span id="username"><%= @survey.username %></span>!
             </h1>
 
             <p class="info-survey">
@@ -97,7 +97,9 @@ function makeRequest(method, action, data) {
 
         results = data.sort((a, b) => b.points - a.points);
 
-        redirectTo('/show_survey', results);
+        username = getUsername();
+
+        redirectTo('/show_survey', { results, username });
     };
 
     xhr.open(method, action);
@@ -106,14 +108,15 @@ function makeRequest(method, action, data) {
 
     xhr.send(JSON.stringify(data));
 }
-const getValue = () =>{
-    return document.getElementById("Nombre");
-  }
 
-function redirectTo(url, data) {
-    param = getValue();
-    window.location.href = `${url}?username=${param}&results=${encodeURIComponent(JSON.stringify(data))}`;
+function getUsername() {
+    return document.getElementById('username').textContent;
 }
+
+function redirectTo(url, { results, username }) {
+    window.location.href = `${url}?username=${username}&results=${encodeURIComponent(JSON.stringify(results))}`;
+}
+
 </script>
 
 <style>
@@ -144,25 +147,6 @@ function redirectTo(url, data) {
         width: 50%;
 
         margin: 1rem auto;
-    }
-
-    #username {
-        border: 1px solid;
-
-        margin-top: 1rem;
-
-        width: 95%;
-        height: 2rem;
-
-        border-radius: 10px;
-
-        border-color: #95a5a6;
-
-        padding: 0 10px;
-
-        font-size: 1.2rem;
-
-        font-weight: bold;
     }
 
     form {
@@ -252,7 +236,7 @@ function redirectTo(url, data) {
         font-size: 2rem;
     }
 
-    .username {
+    #username {
         font-weight: bold;
     }
 
