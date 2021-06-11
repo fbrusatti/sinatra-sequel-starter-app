@@ -80,9 +80,9 @@ function getChoicesSelected() {
 
     const choicesSelectedInHTML = inputsInHTMLInArray.filter(inputInHTML => inputInHTML.checked);
 
-    return choicesSelectedInHTML.map(choiceInHTML => ({
-        ...choiceInHTML.dataset
-    }));
+    return choicesSelectedInHTML.map(choiceInHTML => (
+        choiceInHTML.dataset
+    ));
 }
 
 function makeRequest(method, action, data) {
