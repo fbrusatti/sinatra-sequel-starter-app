@@ -16,7 +16,7 @@ math = Question.create(
 )
 write = Question.create(
     name: 'Me gusta escribir. En general mis trabajos son largos y están bien organizados.',
-    description: 'Con relacion a Literaruta, Historia'
+    description: 'Con relacion a Literatura, Historia'
 )
 physics = Question.create(
     name: 'Sé quien es Steven Hawking: Conozco y me atraen sus descubrimientos.',

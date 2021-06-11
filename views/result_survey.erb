@@ -10,7 +10,7 @@
     <body class="page">
         <div class="container">
             <h1 class="title">
-                Genial <span>Nombre</span>!
+                Genial <span class="username"><%= @survey.username %></span>!
             </h1>
 
             <div class="points">
@@ -127,6 +127,10 @@
 
     span {
         font-weight: bold;
+    }
+    .username{
+     font-weight: bold;
+
     }
 
     .points {

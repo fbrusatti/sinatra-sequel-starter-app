@@ -10,7 +10,7 @@
     <body class="page">
         <div class="container">
             <h1 class="title-survey">
-                ¡Bienvenido <span class="username"><%= @survey.username %></span>!
+                ¡Bienvenido <span class="Nombre"><%= @survey.username %></span>!
             </h1>
 
             <p class="info-survey">
@@ -106,9 +106,13 @@ function makeRequest(method, action, data) {
 
     xhr.send(JSON.stringify(data));
 }
+const getValue = () =>{
+    return document.getElementById("Nombre");
+  }
 
 function redirectTo(url, data) {
-    window.location.href = `${url}?results=${encodeURIComponent(JSON.stringify(data))}`;
+    param = getValue();
+    window.location.href = `${url}?username=${param}&results=${encodeURIComponent(JSON.stringify(data))}`;
 }
 </script>
 
