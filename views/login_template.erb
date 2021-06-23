@@ -26,7 +26,12 @@
   }
 function redirection(){
   let valorParam = getValueInput();
+  if (valorParam == ""){
+        alert("Por favor, ingrese su nombre")
+        window.location.href='/' ;
+  }else{
   window.location.href='/make_survey?username=' + valorParam  ;
+  }
 }
 
 </script>
