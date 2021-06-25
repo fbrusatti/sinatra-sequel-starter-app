@@ -12,6 +12,11 @@ class App < Sinatra::Base
 
     erb :survey_template
   end
+  get '/careers_available' do
+    @careers = Career.all
+    erb :careers_available
+   end
+
 
   post "/finish_survey" do
     choicesSelected = JSON.parse request.body.read

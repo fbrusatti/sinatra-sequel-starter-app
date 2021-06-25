@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>
+            CareersAvailables
+        </title>
+    </head>
+
+    <body class="page">
+        <div class="container">
+
+            <div class="points">
+                <h2> Carreras disponibles: </h2>
+
+                    <ul>
+                        <% @careers.each do |career| %>
+                            <li class="info">
+                                <%= career.name %>
+                            </li>
+                        <% end %>
+                    </ul>
+            </div>
+        </div>
+        <button onclick="HomeTest()">
+            Volver a la pagina principal    
+        </button>
+    </body>
+</html>
+
+<script >
+function HomeTest(){
+   window.location.href='/';
+}
+</script>
+
+
+<style>
+
+li {
+    margin: 1rem 0;
+}
+
+.page {
+background-color: #bdc3c7;
+
+font-family: arial;
+
+color: #ecf0f1;
+
+display: flex;
+flex-direction: column;
+justify-content: center;
+
+}
+.info {
+        margin: 1rem;
+        padding: 1rem;
+        border-radius: 10px;
+
+        background-color: #ecf0f1;
+
+        font-weight: lighter;
+        font-size: 16px;
+        color: #34495e ;
+        text-align: start;
+}
+
+button {
+        padding: 0.5rem;
+        margin: auto;
+
+        border-radius: 10px;
+
+        background-color: #f39c12;
+
+        border: 1px solid #e67e22;
+
+        color: #2c3e50;
+
+        cursor: pointer;
+
+        font-weight: bold;
+
+        width: 15rem;
+        height: 3rem;
+        cursor: pointer
+}
+.points {
+        width: 60%;
+        margin: auto;
+        padding: 1rem;
+
+        color: #2c3e50;
+        text-align: center;
+        font-size: 1rem;
+    }
+ .container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-content: center;
+    }
+
+
+
+</style>

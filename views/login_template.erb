@@ -6,16 +6,19 @@
   </head>
   <body>
       <div class="login-box">
+        <div class = "lineOne"></div>
         <h1>
           <p style="font-family:courier,arial,helvética;">
             Bienvenido a |VOCATIONAL-TEST|
           </p>
         </h1>
+        <div class = "lineTwo"></div>
         <form>
-          <label for="username">Username:</label>
+          <label for="username" id="etiqueta1">Username:</label>
           <input  id ="nombreUsuario" placeholder="Ingrese un nombre">
           <input type="button" value="Realizar Test" onclick="redirection()">
         </form>
+          <p>Click <a href="/careers_available">aqui</a>, para ver las carreras disponibles.</p>
     </div>
   </body>
 </html>
@@ -40,7 +43,7 @@ function redirection(){
 body {
   margin: 0;
   padding: 0;
-  background: url(../img/bg.jpeg) no-repeat center top #2c3e50;
+  background:  #2c3e50;
   background-size: cover;
   font-family: sans-serif;
   height: 100vh;
@@ -60,6 +63,21 @@ body {
   box-sizing: border-box;
   padding: 70px 30px;
   border-radius: 10px;
+}
+
+.lineOne{
+  position: relative;
+  bottom: -20px;
+  border: 1px solid #2c3e50;
+}
+.lineTwo{
+  position: relative;
+  bottom: 30px;
+  border: 1px solid #2c3e50;
+}
+.login-box a{
+  color: #2c3e50;
+  font-weight: bold;
 }
 
 .login-box h1 {
