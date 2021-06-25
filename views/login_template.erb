@@ -6,13 +6,13 @@
   </head>
   <body>
       <div class="login-box">
-        <div class = "lineOne"></div>
+        <div class="lineOne"></div>
         <h1>
           <p style="font-family:courier,arial,helvética;">
             Bienvenido a |VOCATIONAL-TEST|
           </p>
         </h1>
-        <div class = "lineTwo"></div>
+        <div class="lineTwo"></div>
         <form>
           <label for="username" id="etiqueta1">Username:</label>
           <input  id ="nombreUsuario" placeholder="Ingrese un nombre">
@@ -24,19 +24,19 @@
 </html>
 
 <script>
-  const getValueInput = () =>{
-    return document.getElementById("nombreUsuario").value;
-  }
-function redirection(){
-  let valorParam = getValueInput();
-  if (valorParam == ""){
-        alert("Por favor, ingrese su nombre")
-        window.location.href='/' ;
-  }else{
-  window.location.href='/make_survey?username=' + valorParam  ;
-  }
-}
+  const getValueInput = () => document.getElementById("nombreUsuario").value;
 
+  function redirection(){
+    const valorParam = getValueInput();
+
+    if (!valorParam.length){
+          alert("Por favor, ingrese su nombre");
+
+          return;
+    }
+
+    window.location.href='/make_survey?username=' + valorParam  ;
+  }
 </script>
 
 <style >
@@ -48,7 +48,6 @@ body {
   font-family: sans-serif;
   height: 100vh;
 }
-
 
 .login-box {
   width: 320px;
