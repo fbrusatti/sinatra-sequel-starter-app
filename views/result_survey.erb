@@ -14,17 +14,23 @@
             </h1>
 
             <div class="points">
-                <p> Los puntajes segun la carrera fueron: </p>
+                <% if @results.length() == 0 %>
+                    <p class="info">
+                        No se registraron respuestas
+                    </p>
+                <% else %>
+                    <p> Los puntajes segun la carrera fueron: </p>
 
-                <div class="box">
-                    <ul>
-                        <% @results.each do |result| %>
-                            <li class="info">
-                                <%= result['name'] %> = <%= result['points'] %>
-                            </li>
-                        <% end %>
-                    </ul>
-                </div>
+                    <div class="box">
+                            <ul>
+                            <% @results.each do |result| %>
+                                <li class="info">
+                                    <%= result['name'] %> = <%= result['points'] %>
+                                </li>
+                            <% end %>
+                            </ul>
+                    </div>
+                <% end %>
             </div>
         </div>
 
