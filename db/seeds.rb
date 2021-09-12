@@ -1,4 +1,5 @@
 # Clean data
+User.all.map {|user| user.destroy }
 Response.all.map { |response| response.destroy }
 Outcome.all.map { |outcome| outcome.destroy }
 Survey.all.map { |survey| survey.destroy }

@@ -16,9 +16,9 @@
         <div class="lineTwo"></div>
         <form>
           <label for="username">Nombre de usuario:</label>
-          <input id ="nombreUsuario" placeholder="Ingrese un nombre" type="text" name="nombre">
-          <label for="IdniUsuario" >Dni:</label>
-          <input id ="dniUsuario" type="text" placeholder="Ingrese un documento">
+          <input id ="nameUser" placeholder="Ingrese un nombre" type="text" name="nombre">
+          <label for="IdniUser" >Dni:</label>
+          <input id ="dniUser" type="text" placeholder="Ingrese un documento">
           <input type="button" value="Realizar Test" onclick="redirection()">
         </form>
           <h2 class="textLow">Click <a href="/careers_available">aqui</a>, para ver las carreras disponibles.</h2>
@@ -27,9 +27,8 @@
 </html>
 
 <script>
-  const getValueInput = () => document.getElementById("nombreUsuario").value;
-  const getValueInputSecond = () => document.getElementById("dniUsuario").value;
-
+  const getValueInput = () => document.getElementById("nameUser").value;
+  const getValueInputSecond = () => document.getElementById("dniUser").value;
   function redirection(){
     const valorParam = getValueInput();
     const valorParamSecond = getValueInputSecond();
@@ -38,9 +37,35 @@
 
           return;
     }
-
     window.location.href='/make_survey?username=' + valorParam  ;
   }
+  const saveUser = async () => {
+    const user = {
+        username: document.getElementById("nameUser").value,
+        dni: document.getElementById("dniUser").value
+    }
+
+    if(!carrer.username.length && !carrer.dni.length) {
+        alert('¡Debe completar los campos correctamente!');
+
+        return;
+    }
+
+    const response = await fetch('create_user', {
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(user)
+    });
+
+    responseInJson = await response.json();
+
+    const [ responseMessage ] = Object.values(responseInJson);
+
+    alert(responseMessage);
+}
 </script>
 
 <style >

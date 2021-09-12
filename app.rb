@@ -85,6 +85,20 @@ class App < Sinatra::Base
 
     erb :result_survey
   end
+  post '/create_user' do
+    user = JSON.parse request.body.read
+    User.create(username: user['username'], dni: user['dni'])
+  end
+  #def saveUser(user)
+  #  begin
+      #checkCareerIsCreated(user)
+
+
+     # { success: "Carrera #{career['name']} creada" }.to_json
+    #rescue StandardError => e
+    #  { error: e.message }.to_json
+    #end
+  #end
 
   post '/create_career' do
     career = JSON.parse request.body.read
