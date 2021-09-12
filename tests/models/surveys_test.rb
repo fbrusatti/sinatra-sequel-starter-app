@@ -3,8 +3,7 @@ require File.expand_path  '../../test_helper.rb', __FILE__
 
 	class SurveysTest < MiniTest::Unit::TestCase
 	  MiniTest::Unit::TestCase
-
-			#se valida que un survey no puede tener un text vacio
+	  #se valida que un survey no puede tener un text vacio
 	  def test_surveys_must_has_username
 	 	survey = Survey.new
 		survey.username = ''

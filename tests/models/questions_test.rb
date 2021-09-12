@@ -28,14 +28,16 @@ require File.expand_path  '../../test_helper.rb', __FILE__
 			assert_equal question.valid?, false
 		end
 
-		# def test_career_has_description_validator
-		#	question = Question.new
-		#
-		#	question.description = ''
-		#
-		#	assert_equal description.valid?, false
-		#end
-
+		def test_career_has_description_validator
+			question = Question.new
+			question.description = ''
+			assert_equal question.valid?, false
+		end
+		def test_career_has_type_validator
+			question = Question.new
+			question.type = ''
+			assert_equal question.valid?, false
+		end
 
 
 
