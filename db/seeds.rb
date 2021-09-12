@@ -1,4 +1,5 @@
 # Clean data
+Response.all.map { |response| response.destroy }
 Outcome.all.map { |outcome| outcome.destroy }
 Survey.all.map { |survey| survey.destroy }
 Career.all.map { |career| career.destroy }
@@ -172,23 +173,23 @@ priority_choice_5 = Choice.create(
 )
 
 # Careers
-arquitecture_career = Career.create(name: 'Arquitectura')
-art_career = Career.create(name: 'Arte')
-informatic_career = Career.create(name: 'Computación')
-economy_career = Career.create(name: 'Economía')
-gym_career = Career.create(name: 'Educación física')
-philosophy_career = Career.create(name: 'Filosofía')
-physics_career = Career.create(name: 'Física')
-geology_career = Career.create(name: 'Geología')
-history_career = Career.create(name: 'Historia')
-literature_career = Career.create(name: 'Literaruta')
-math_career = Career.create(name: 'Matemáticas')
-medicine_career = Career.create(name: 'Medicina')
-sociology_career = Career.create(name: 'Sociología')
-periodism_career = Career.create(name: 'Periodismo')
-chimesrty_career = Career.create(name: 'Química')
-agronomy_career = Career.create(name: 'Agronomia')
-veterinary_career = Career.create(name: 'Veterinaria')
+arquitecture_career = Career.create(name: 'Arquitectura', link: '')
+art_career = Career.create(name: 'Arte', link: '')
+informatic_career = Career.create(name: 'Computación', link: 'https://www.unrc.edu.ar/unrc/carreras/ProgAsig2.php?n=QiZi9hLT57Fip/rkJOHhJZaaCYsBAPETixEYkBrhlAI=')
+economy_career = Career.create(name: 'Economía', link: 'https://www.eco.unrc.edu.ar/seccion/grado/plan-estudios-le/')
+gym_career = Career.create(name: 'Educación Fisica', link: 'https://www.unrc.edu.ar/unrc/carreras/ProgAsig5.php?n=EnmIjqbc0Uta5lIlTsxBKRbylQg2dQAA3XYHBM6chLE%3D')
+philosophy_career = Career.create(name: 'Filosofía', link: 'https://www.unrc.edu.ar/unrc/carreras/ProgAsig5.php?n=jJ3xRJeQsn2Iok1HQpVZHRiddh1Ede0JgFuD1shHXRc%3D')
+physics_career = Career.create(name: 'Física', link: 'https://www.unrc.edu.ar/unrc/carreras/ProgAsig2.php?n=tQPxQVYkZmwPj2Sl%2BtQyhVuUVwBge%2Fjjs%2F5a3WgGbeQ%3D')
+geology_career = Career.create(name: 'Geología', link: 'https://www.unrc.edu.ar/unrc/carreras/ProgAsig2.php?n=pRWKdi%2Fd%2FJl4mRrgaWAxd2A96dUddFPYakaXqOo0PYU%3D')
+history_career = Career.create(name: 'Historia', link: 'https://www.unrc.edu.ar/unrc/carreras/ProgAsig5.php?n=rV8U7R3EWnVoZI79l5WWgcNKLdq3hYSQuzMdkxUSlWE%3D')
+literature_career = Career.create(name: 'Literaruta', link: 'https://www.unrc.edu.ar/unrc/carreras/ProgAsig5.php?n=%2FBpLfBDYxXmQaxDePIM%2Bvqvf5cLyAysalAWtwPjvud4%3D')
+math_career = Career.create(name: 'Matemáticas', link: 'https://www.unrc.edu.ar/unrc/carreras/ProgAsig2.php?n=UC55Mug%2BT2YolRq1o%2F1ssRc3ocBCtzvFfjJku4bkUVE%3D')
+medicine_career = Career.create(name: 'Medicina', link: '')
+sociology_career = Career.create(name: 'Sociología', link: '')
+periodism_career = Career.create(name: 'Periodismo', link: 'https://www.unrc.edu.ar/unrc/carreras/ProgAsig5.php?n=nm%2BbeKeSWYL8zSYqQxDEk7H7SUVig99bhQOHGJSkTMU%3D')
+chimesrty_career = Career.create(name: 'Química', link: 'https://www.unrc.edu.ar/unrc/carreras/ProgAsig2.php?n=jHkVW45CPW5kIWNIkiemrHnaI9ydncBO36GTxfGawAU%3D')
+agronomy_career = Career.create(name: 'Agronomia', link: 'http://www.ayv.unrc.edu.ar/index.php/es/carreras/carreras-de-grado/ingeniaria-agronomica')
+veterinary_career = Career.create(name: 'Veterinaria', link: 'http://www.ayv.unrc.edu.ar/index.php/es/carreras/carreras-de-grado/medicina-veterinaria')
 
 # Surveys
 Survey.create(username: 'Franco', career_id: veterinary_career.id)

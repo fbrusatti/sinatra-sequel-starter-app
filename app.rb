@@ -15,6 +15,7 @@ class App < Sinatra::Base
 
   get '/careers_available' do
     @careers = Career.all
+
     erb :careers_available
   end
 
@@ -83,5 +84,33 @@ class App < Sinatra::Base
     @username = params[:username]
 
     erb :result_survey
+  end
+
+  post '/create_career' do
+    career = JSON.parse request.body.read
+
+    saveCarrer(career)
+  end
+
+  def saveCarrer(career)
+    begin
+      checkCareerIsCreated(career)
+
+      Career.create(name: career['name'], link: career['link'])
+
+      { success: "Carrera #{career['name']} creada" }.to_json
+    rescue StandardError => e
+      { error: e.message }.to_json
+    end
+  end
+
+  def checkCareerIsCreated(careerToCreate)
+    careers = Career.all
+
+    careers.each do |career|
+      if career.name == careerToCreate['name']
+        raise "La carrera #{career.name} ya existe"
+      end
+    end
   end
 end
