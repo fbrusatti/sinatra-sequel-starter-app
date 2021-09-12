@@ -8,29 +8,33 @@
       <div class="login-box">
         <div class="lineOne"></div>
         <h1>
-          <p style="font-family:courier,arial,helvética;">
-            Bienvenido a |VOCATIONAL-TEST|
+          <p style="font-family:helvética;">
+            Bienvenido a
+            |VOCATIONAL-TEST|
           </p>
         </h1>
         <div class="lineTwo"></div>
         <form>
-          <label for="username" id="etiqueta1">Username:</label>
-          <input  id ="nombreUsuario" placeholder="Ingrese un nombre">
+          <label for="username">Nombre de usuario:</label>
+          <input id ="nombreUsuario" placeholder="Ingrese un nombre" type="text" name="nombre">
+          <label for="IdniUsuario" >Dni:</label>
+          <input id ="dniUsuario" type="text" placeholder="Ingrese un documento">
           <input type="button" value="Realizar Test" onclick="redirection()">
         </form>
-          <p>Click <a href="/careers_available">aqui</a>, para ver las carreras disponibles.</p>
+          <h2 class="textLow">Click <a href="/careers_available">aqui</a>, para ver las carreras disponibles.</h2>
     </div>
   </body>
 </html>
 
 <script>
   const getValueInput = () => document.getElementById("nombreUsuario").value;
+  const getValueInputSecond = () => document.getElementById("dniUsuario").value;
 
   function redirection(){
     const valorParam = getValueInput();
-
-    if (!valorParam.length){
-          alert("Por favor, ingrese su nombre");
+    const valorParamSecond = getValueInputSecond();
+    if (!valorParam.length || !valorParamSecond.length){
+          alert("Por favor, complete ambos campos!");
 
           return;
     }
@@ -50,8 +54,8 @@ body {
 }
 
 .login-box {
-  width: 320px;
-  height: 420px;
+  width: 380px;
+  height: 470px;
   background: #fff;
   color: #2c3e50;
   top: 50%;
@@ -71,10 +75,11 @@ body {
 }
 .lineTwo{
   position: relative;
-  bottom: 30px;
+  bottom: 25px;
   border: 1px solid #2c3e50;
 }
-.login-box a{
+.login-box p{
+  height: 50px;
   color: #2c3e50;
   font-weight: bold;
 }
@@ -85,7 +90,11 @@ body {
   text-align: center;
   font-size: 25px;
 }
-
+.login-box h2 {
+  margin: 10;
+  text-align: center;
+  font-size: 12px;
+}
 .login-box label {
   margin: 0;
   padding: 0;
@@ -94,19 +103,16 @@ body {
   display: block;
 }
 
-.login-box input {
-  width: 100%;
-  margin-bottom: 20px;
-}
-
 .login-box input[type="text"] {
   border: none;
   border-bottom: 1px solid #fff;
   background: transparent;
   outline: none;
-  height: 40px;
-  color: #fff;
+  height: 15px;
+  color: #000;
   font-size: 16px;
+  width: 100%;
+  margin-bottom: 20px;
 }
 
 .login-box input[type="button"] {
@@ -139,6 +145,13 @@ body {
 }
 
 #nombreUsuario {
+  border: 1px solid;
+  border-radius: 10px;
+  padding: 10px;
+  margin: 1rem 1rem 1rem 0;
+  width: 90%;
+}
+#dniUsuario {
   border: 1px solid;
   border-radius: 10px;
   padding: 10px;
