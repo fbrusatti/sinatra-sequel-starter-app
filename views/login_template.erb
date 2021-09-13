@@ -37,6 +37,8 @@
 
           return;
     }
+
+    saveUser();return;
     window.location.href='/make_survey?username=' + valorParam  ;
   }
   const saveUser = async () => {
@@ -45,11 +47,13 @@
         dni: document.getElementById("dniUser").value
     }
 
-    if(!carrer.username.length && !carrer.dni.length) {
+    if(!user.username.length && !user.dni.length) {
         alert('¡Debe completar los campos correctamente!');
 
         return;
     }
+
+    console.log(user);
 
     const response = await fetch('create_user', {
         method: 'POST',

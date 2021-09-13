@@ -87,7 +87,10 @@ class App < Sinatra::Base
   end
   post '/create_user' do
     user = JSON.parse request.body.read
+
     User.create(username: user['username'], dni: user['dni'])
+
+    { success: "Usuario #{user['username']} creado" }.to_json
   end
   #def saveUser(user)
   #  begin
