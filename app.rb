@@ -2,6 +2,9 @@ require './models/init.rb'
 
 class App < Sinatra::Base
   get '/' do
+    erb :welcome_test
+  end
+  get '/normal_test' do
     erb :login_template
   end
 

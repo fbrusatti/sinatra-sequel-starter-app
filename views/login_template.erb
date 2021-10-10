@@ -9,16 +9,18 @@
         <div class="lineOne"></div>
         <h1>
           <p style="font-family:helvética;">
-            Bienvenido a
             |VOCATIONAL-TEST|
           </p>
         </h1>
         <div class="lineTwo"></div>
+        <p>
+          Por favor complete los siguientes campos:
+        </p>
         <form>
           <label for="username">Nombre de usuario:</label>
           <input id ="nameUser" placeholder="Ingrese un nombre" type="text" name="nombre">
-          <label for="IdniUser" >Dni:</label>
-          <input id ="dniUser" type="text" placeholder="Ingrese un documento">
+          <label for="IdniUser" >Documento del usuario:</label>
+          <input id ="dniUser" type="text" placeholder="Ingrese los numeros">
           <input type="button" value="Realizar Test" onclick="redirection()">
         </form>
           <h2 class="textLow">Click <a href="/careers_available">aqui</a>, para ver las carreras disponibles.</h2>
@@ -99,18 +101,19 @@ body {
 
 .lineOne{
   position: relative;
-  bottom: -20px;
+  bottom: 3px;
   border: 1px solid #2c3e50;
 }
 .lineTwo{
   position: relative;
-  bottom: 25px;
+  bottom: 60px;
   border: 1px solid #2c3e50;
 }
 .login-box p{
   height: 50px;
   color: #2c3e50;
   font-weight: bold;
+  margin-top: 0;
 }
 
 .login-box h1 {
@@ -134,7 +137,7 @@ body {
 
 .login-box input[type="text"] {
   border: none;
-  border-bottom: 1px solid #fff;
+  border-bottom: 1px solid #c0c0c0;
   background: transparent;
   outline: none;
   height: 15px;

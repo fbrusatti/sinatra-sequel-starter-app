@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>
+            WelcomeToTest
+        </title>
+    </head>
+
+    <body class="page">
+        <div class="box-welcome">
+            <div class="conten-button">              
+                <h2 class="login-header">¡Bienvenido al test vocacional!</h2>
+
+                <p>Por favor seleccione una de las siguientes opciones: </p>
+                <ul><li>Opcion 1: Si desea realizar un test vocacional.</li>
+                    <li>Opcion 2: Si desea logearse con su cuenta ya creada.</li>
+                </ul>
+                <input type="button" class="conten-button" onclick="testComun()" value = "USUARIO NUEVO" >
+                <input type="button" class="conten-button" value = "USUARIO ADMIN">
+            </div>       
+        </div>
+    </body>
+</html>
+
+<script>
+function testComun() {
+    window.location.href='/normal_test';
+}
+</script>
+
+<style>
+body{
+    background: #2c3e50;
+    font-family: 'Open Sans', sans-serif;
+
+}   
+.box-welcome{
+    width: 600px;
+    height: 270px;
+    background: #fff ;
+    top: 50%;
+    left: 50%;
+    position: absolute;
+    transform: translate(-50%, -50%);
+    border-radius: 10px;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+
+}
+.conten-button{
+    position: relative;
+    display: inline-block;
+    
+}
+
+.conten-button ul{
+    list-style-type: square;
+}
+.conten-button li{
+    font-size: 0.8em;
+}
+
+.conten-button input[type = "button"]{
+    background: #2c3e50 ;
+    color: #eee;
+    font-size: 10px;
+    margin: 4px 10px;
+    cursor: pointer;
+    padding: 24px 70px;
+    border-radius:20px;
+    outline: none;
+}
+
+.conten-button input[type="button"]:hover{
+  cursor: pointer;
+  background: silver ;
+  color: #2c3e50;
+}
+
+.conten-button p{
+    margin-button: 0;
+    text-align:center;
+    font-size: 0.9em;
+
+}
+
+.conten-button h1 {
+  margin: 0;
+  padding: 0 0 20px;
+  text-align: center;
+  font-size: 30px;
+}
+
+.login-header{
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.login-header {
+  background: #2c3e50;
+  padding: 10px;
+  font-size: 1.4em;
+  font-weight: normal;
+  text-align: center;
+  text-transform: uppercase;
+  color: #fff;
+
+}
+
+
+
+
+</style>
