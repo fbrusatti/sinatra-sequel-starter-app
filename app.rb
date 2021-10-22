@@ -83,11 +83,63 @@ class App < Sinatra::Base
 
   get '/show_survey' do
     @results = JSON.parse params[:results]
-
+    # aca logro acomodar de menor a mayor 
+    @resultOrdered = @results.sort_by do |r|
+      r["points"]
+    end
+    saveResultCareerTop(@resultOrdered)
     @username = params[:username]
+    @careers = Career.all
 
     erb :result_survey
   end
+
+  post '/get_result_careers' do 
+    careerSelect = JSON.parse request.body.read
+    fechaInicio = careerSelect['startDate']
+    fechaFin = careerSelect['endDate']
+    resultCareers = ResultCareer.all
+    aux = careerSelect['idCareer']
+    count = 0
+    
+
+    resultCareers.each do |career|
+      if career.career_id == aux
+       count = count + 1
+      end
+    end   
+    
+    { quantity: count}.to_json
+  
+  end
+
+
+  def saveResultCareerTop( careersResult )
+    begin
+      #I get the race with the most points
+      topCareerPoint = careersResult[ (careersResult.length()) - 1]
+      
+      career_id = Career.where(name: topCareerPoint['name']).first.id
+
+      # aca vamos a tener que chequear la forma de obtener el user_id sin hardcodearlo
+      result =  Result.create(user_id: 1)
+      result_id = Result.where(user_id: 1 ).first.user_id
+      
+      ResultCareer.create(result_id:result_id, career_id:career_id, career_points:topCareerPoint['points'])
+
+      careersResult.delete_at((careersResult.length()) - 1)
+
+      careersResult.each do |iterator|
+        if iterator['points'] == topCareerPoint['points']
+          career_id = Career.where(name: iterator['name']).first.id
+          result_id = Result.where(user_id: 1 ).first.user_id
+          ResultCareer.create(result_id:result_id, career_id:career_id, career_points:topCareerPoint['points'])
+        end  
+      end
+
+    end
+  end
+
   post '/create_user' do
     user = JSON.parse request.body.read
 
@@ -95,6 +147,7 @@ class App < Sinatra::Base
 
     { success: "Usuario #{user['username']} creado" }.to_json
   end
+
   #def saveUser(user)
   #  begin
       #checkCareerIsCreated(user)
