@@ -10,7 +10,7 @@
     <body class="page">
         <div class="container">
             <h1 class="title-survey">
-                ¡Bienvenido <span id="username"><%= @survey.username %></span>!
+                ¡Bienvenido <span data-dni="<%= @user.dni %>" id="user-info"><%= @user.username %></span>!
             </h1>
 
             <p class="info-survey">
@@ -67,10 +67,26 @@
 </html>
 
 <script>
-function sendForm() {
+async function sendForm() {
     const choicesSelected = getChoicesSelected();
 
-    makeRequest('POST', '/finish_survey', choicesSelected);
+    const response = await fetch('/finish_survey', {
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            user: {
+                dni: document.getElementById('user-info').dataset.dni
+            },
+            choicesSelected
+        })
+    });
+
+    const responseInJson = await response.json();
+
+    window.location.href = `/show_survey?result_id=${responseInJson.result_id}`
 }
 
 function getChoicesSelected() {
@@ -84,39 +100,6 @@ function getChoicesSelected() {
         choiceInHTML.dataset
     ));
 }
-
-function makeRequest(method, action, data) {
-    const xhr = new XMLHttpRequest();
-
-    xhr.onreadystatechange = function () {
-        if (this.readyState !== 4) return;
-
-        if (this.status !== 200) return;
-
-        const data = JSON.parse(this.responseText);
-
-        results = data.sort((a, b) => b.points - a.points);
-
-        username = getUsername();
-
-        redirectTo('/show_survey', { results, username });
-    };
-
-    xhr.open(method, action);
-
-    xhr.setRequestHeader('Content-Type', 'application/json');
-
-    xhr.send(JSON.stringify(data));
-}
-
-function getUsername() {
-    return document.getElementById('username').textContent;
-}
-
-function redirectTo(url, { results, username }) {
-    window.location.href = `${url}?username=${username}&results=${encodeURIComponent(JSON.stringify(results))}`;
-}
-
 </script>
 
 <style>

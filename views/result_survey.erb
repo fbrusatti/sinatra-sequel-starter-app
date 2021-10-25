@@ -10,7 +10,7 @@
     <body class="page">
         <div class="container">
             <h1 class="title">
-                Genial <span class="username"><%= @username %></span>!
+                Genial <span class="username"><%= @user.username %></span>!
             </h1>
 
             <div class="points">
@@ -23,9 +23,9 @@
 
                     <div class="box">
                             <ul>
-                            <% @results.each do |result| %>
+                            <% @careers.each do |career, index| %>
                                 <li class="info">
-                                    <%= result['name'] %> = <%= result['points'] %>
+                                    <%= career.name %> = <%= @results[index.to_i].career_points %>
                                 </li>
                             <% end %>
                             </ul>
@@ -40,8 +40,8 @@
     </body>
 </html>
 <script>
-    function reloadTest(){
-        window.location.href='/normal_test';
+    function reloadTest() {
+        window.location.href='/';
     }
 </script>
 
