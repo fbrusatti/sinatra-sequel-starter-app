@@ -9,25 +9,23 @@
 
     <body class="page">
         <div class="box-welcome">
-            <div class="conten-button">              
+            <div class="conten-button">
                 <h2 class="login-header">¡Bienvenido al test vocacional!</h2>
 
                 <p>Por favor seleccione una de las siguientes opciones: </p>
                 <ul><li>Opcion 1: Si desea realizar un test vocacional.</li>
                     <li>Opcion 2: Si desea logearse con su cuenta ya creada.</li>
                 </ul>
-                <input type="button" class="conten-button" onclick="testComun()" value = "USUARIO NUEVO" >
-                <input type="button" class="conten-button" value = "USUARIO ADMIN">
-            </div>       
+
+                <a class="conten-button" href="/sign_up" > Registrarse </a>
+                <a class="conten-button" href="/sign_in" > Iniciar Sesion </a>
+
+            </div>
         </div>
+
+        <a style="color: white;" class="conten-button" href="/careers_available"> Ver las carreras disponibles </a>
     </body>
 </html>
-
-<script>
-function testComun() {
-    window.location.href='/normal_test';
-}
-</script>
 
 <style>
 body{
@@ -63,7 +61,7 @@ body{
     font-size: 0.8em;
 }
 
-.conten-button input[type = "button"]{
+.conten-button a{
     background: #2c3e50 ;
     color: #eee;
     font-size: 10px;
@@ -74,7 +72,7 @@ body{
     outline: none;
 }
 
-.conten-button input[type="button"]:hover{
+.conten-button a:hover{
   cursor: pointer;
   background: silver ;
   color: #2c3e50;
@@ -109,8 +107,4 @@ body{
   color: #fff;
 
 }
-
-
-
-
 </style>

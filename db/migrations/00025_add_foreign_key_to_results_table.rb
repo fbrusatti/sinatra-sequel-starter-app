@@ -5,6 +5,6 @@ Sequel.migration do
     end
   end
   down do
-    drop_column :userses, :user_id
+    drop_column :users, :user_id
   end
 end

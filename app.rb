@@ -77,11 +77,11 @@ class App < Sinatra::Base
 
     result = Result.create(user_id: user.id)
 
-    careersWithPoints.each do |careerWithPoint|
+    careersWithPoints.map do |careerWithPoint|
       ResultCareer.create(
         result_id: result.id,
-        career_id: careerWithPoint['career_id'],
-        career_points: careerWithPoint['points']
+        career_id: careerWithPoint[:career_id],
+        career_points: careerWithPoint[:points]
       )
     end
 
@@ -89,10 +89,17 @@ class App < Sinatra::Base
   end
 
   get '/show_survey' do
-    results = ResultCareer.where(result_id: params[:result_id]).all
+    @results = ResultCareer.where(result_id: params[:result_id]).all
 
-    results.inspect
+    careers_ids = @results.map do |result| result[:career_id] end
 
+    @careers = Career.where(id: careers_ids).all
+
+    result = Result.where(id: params[:result_id]).first
+
+    @user = User.where(id: result[:user_id]).first
+
+    erb :result_survey
   end
 
   get '/sign_up' do
@@ -105,6 +112,20 @@ class App < Sinatra::Base
     @loginType = 'sign_in'
 
     erb :login_template
+  end
+
+  post '/get_career_score' do
+    careerSelect = JSON.parse request.body.read
+
+    count = 0
+
+    ResultCareer.all.each do |career|
+      if career.career_id == careerSelect['careerId'].to_i
+        count = count + 1
+      end
+    end
+
+    { career_score: count }.to_json
   end
 
   get '/complete_sign_up' do

@@ -33,7 +33,13 @@
                 <ul>
                     <% @careers.each do |career| %>
                         <li class="info">
-                            <a href="<%= career.link %>" target="_blank"> <%= career.name %> </a>
+                            <div class="career-container">
+                                <a href="<%= career.link %>" target="_blank"> <%= career.name %> </a>
+
+                                <button data-career-name="<%= career.name %>" data-career-id="<%= career.id %>" onclick="calculateStatistics(this)" style="margin: 0;">
+                                    Ver estadistica
+                                </button>
+                            </div>
                         </li>
                     <% end %>
                 </ul>
@@ -77,6 +83,23 @@ const saveCareer = async () => {
     const [ responseMessage ] = Object.values(responseInJson);
 
     alert(responseMessage);
+}
+
+const calculateStatistics = async ({ dataset: { careerId, careerName } }) => {
+    const response = await fetch('get_career_score', {
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            careerId
+        })
+    });
+
+    const result = await response.json();
+
+    alert(`La cantidad de apariciones de ${careerName} es ${result.career_score}`);
 }
 </script>
 
@@ -162,4 +185,11 @@ button {
         justify-content: center;
         align-content: center;
     }
+
+.career-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
 </style>
