@@ -4,17 +4,6 @@ class App < Sinatra::Base
   get '/' do
     erb :welcome_test
   end
-  get '/normal_test' do
-    erb :login_template
-  end
-
-  get '/make_survey' do
-    @questions = Question.all
-
-    @survey = Survey.create(username: params[:username])
-
-    erb :survey_template
-  end
 
   get '/careers_available' do
     @careers = Career.all
@@ -23,17 +12,19 @@ class App < Sinatra::Base
   end
 
   post "/finish_survey" do
-    choicesSelected = JSON.parse request.body.read
+    data = JSON.parse request.body.read
 
     clearCache()
 
-    createResponsesFromChoices(choicesSelected)
+    createResponsesFromChoices(data['choicesSelected'])
 
     points = getPoints();
 
-    results = getCareersWithPoints(points);
+    careersWithPoints = getCareersWithPoints(points);
 
-    results.to_json
+    result = createResultSurvey(data['user'], careersWithPoints);
+
+    { result_id: result.id }.to_json
   end
 
   def clearCache()
@@ -81,30 +72,79 @@ class App < Sinatra::Base
     return results
   end
 
+  def createResultSurvey(user, careersWithPoints)
+    user = User.where(dni: user['dni']).first;
+
+    result = Result.create(user_id: user.id)
+
+    careersWithPoints.each do |careerWithPoint|
+      ResultCareer.create(
+        result_id: result.id,
+        career_id: careerWithPoint['career_id'],
+        career_points: careerWithPoint['points']
+      )
+    end
+
+    return result
+  end
+
   get '/show_survey' do
-    @results = JSON.parse params[:results]
+    results = ResultCareer.where(result_id: params[:result_id]).all
 
-    @username = params[:username]
+    results.inspect
 
-    erb :result_survey
   end
-  post '/create_user' do
-    user = JSON.parse request.body.read
 
-    User.create(username: user['username'], dni: user['dni'])
+  get '/sign_up' do
+    @loginType = 'sign_up'
 
-    { success: "Usuario #{user['username']} creado" }.to_json
+    erb :login_template
   end
-  #def saveUser(user)
-  #  begin
-      #checkCareerIsCreated(user)
 
+  get '/sign_in' do
+    @loginType = 'sign_in'
 
-     # { success: "Carrera #{career['name']} creada" }.to_json
-    #rescue StandardError => e
-    #  { error: e.message }.to_json
-    #end
-  #end
+    erb :login_template
+  end
+
+  get '/complete_sign_up' do
+    if User.where(dni: params[:dni]).first
+      @error = "El usuario con DNI #{params[:dni]} ya existe"
+
+      erb :error_page
+
+    else
+      User.create(username: params[:username], dni: params[:dni], password: params[:password])
+
+      @loginType = 'sign_in'
+
+      erb :login_template
+    end
+  end
+
+  get '/complete_sign_in' do
+    user = User.where(dni: params[:dni]).first;
+
+    if !user
+      @error = "El usuario con DNI #{params[:dni]} no existe"
+
+      erb :error_page
+
+    elsif user.password != params[:password]
+      @error = "Password incorrecta"
+
+      erb :error_page
+
+    else
+      @questions = Question.all
+
+      @survey = Survey.create(user_id: user.id)
+
+      @user = user
+
+      erb :survey_template
+    end
+  end
 
   post '/create_career' do
     career = JSON.parse request.body.read
