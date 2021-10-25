@@ -7,15 +7,12 @@
         </title>
     </head>
 
-    <body class="page">
+    <body>
         <div class="box-welcome">
             <div class="conten-button">
                 <h2 class="login-header">¡Bienvenido al test vocacional!</h2>
 
                 <p>Por favor seleccione una de las siguientes opciones: </p>
-                <ul><li>Opcion 1: Si desea realizar un test vocacional.</li>
-                    <li>Opcion 2: Si desea logearse con su cuenta ya creada.</li>
-                </ul>
 
                 <a class="conten-button" href="/sign_up" > Registrarse </a>
                 <a class="conten-button" href="/sign_in" > Iniciar Sesion </a>
@@ -23,17 +20,19 @@
             </div>
         </div>
 
-        <a style="color: white;" class="conten-button" href="/careers_available"> Ver las carreras disponibles </a>
+        <div style="margin: 2rem 1rem; display: flex; justify-content: end;">
+            <a class="avaible-careers-button" href="/careers_available"> Ver las carreras disponibles </a>
+        </div>
     </body>
 </html>
 
 <style>
-body{
+body {
     background: #2c3e50;
     font-family: 'Open Sans', sans-serif;
+}
 
-}   
-.box-welcome{
+.box-welcome {
     width: 600px;
     height: 270px;
     background: #fff ;
@@ -48,20 +47,20 @@ body{
     box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
 
 }
-.conten-button{
+.conten-button {
     position: relative;
     display: inline-block;
-    
 }
 
-.conten-button ul{
+.conten-button ul {
     list-style-type: square;
 }
-.conten-button li{
+
+.conten-button li {
     font-size: 0.8em;
 }
 
-.conten-button a{
+.conten-button a {
     background: #2c3e50 ;
     color: #eee;
     font-size: 10px;
@@ -72,39 +71,52 @@ body{
     outline: none;
 }
 
-.conten-button a:hover{
-  cursor: pointer;
-  background: silver ;
-  color: #2c3e50;
+.conten-button a:hover {
+    cursor: pointer;
+    background: silver ;
+    color: #2c3e50;
 }
 
-.conten-button p{
+.conten-button p {
     margin-button: 0;
     text-align:center;
     font-size: 0.9em;
-
 }
 
 .conten-button h1 {
-  margin: 0;
-  padding: 0 0 20px;
-  text-align: center;
-  font-size: 30px;
-}
-
-.login-header{
-  margin-top: 0;
-  margin-bottom: 0;
+    margin: 0;
+    padding: 0 0 20px;
+    text-align: center;
+    font-size: 30px;
 }
 
 .login-header {
-  background: #2c3e50;
-  padding: 10px;
-  font-size: 1.4em;
-  font-weight: normal;
-  text-align: center;
-  text-transform: uppercase;
-  color: #fff;
+    margin-top: 0;
+    margin-bottom: 0;
+}
 
+.login-header {
+    background: #2c3e50;
+    padding: 10px;
+    font-size: 1.4em;
+    font-weight: normal;
+    text-align: center;
+    text-transform: uppercase;
+    color: #fff;
+}
+
+.avaible-careers-button {
+    padding: 0.5rem;
+    border-radius: 10px;
+    background-color: #f39c12;
+    border: 1px solid #e67e22;
+    color: #2c3e50;
+    font-weight: bold;
+    width: 15rem;
+    height: 3rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 </style>
