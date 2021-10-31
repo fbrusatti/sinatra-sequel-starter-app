@@ -17,7 +17,7 @@
         <p>
           Por favor complete los siguientes campos para
 
-          <% if @loginType == 'sign_up' %>
+          <% if @login_type == 'sign_up' %>
           <span>
             registrarse
           </span>
@@ -29,7 +29,7 @@
         </p>
 
         <form>
-          <% if @loginType == 'sign_up' %>
+          <% if @login_type == 'sign_up' %>
             <label for="username"> Nombre: </label>
             <input id ="username" placeholder="Marty McFly" type="text">
           <% end %>
@@ -40,14 +40,14 @@
           <label for="password" > Contraseña: </label>
           <input type="password" id ="password" placeholder="*******">
 
-          <% if @loginType == 'sign_up' %>
+          <% if @login_type == 'sign_up' %>
             <label for="confirmPassword" > Confirme contraseña: </label>
             <input type="password" id ="confirmPassword" placeholder="*******">
           <% end %>
         </form>
 
         <button onclick="login()">
-          <% if @loginType == 'sign_up' %>
+          <% if @login_type == 'sign_up' %>
             <span>
               registrarse
             </span>

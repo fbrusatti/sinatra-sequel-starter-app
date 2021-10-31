@@ -1,5 +1,6 @@
-require './models/init.rb'
+require './models/init'
 
+# general class of project
 class App < Sinatra::Base
   get '/' do
     erb :welcome_test
@@ -11,87 +12,90 @@ class App < Sinatra::Base
     erb :careers_available
   end
 
-  post "/finish_survey" do
+  post '/finish_survey' do
     data = JSON.parse request.body.read
 
-    clearCache()
+    clear_cache
 
-    createResponsesFromChoices(data['choicesSelected'])
+    create_responses_from_choices(data['choicesSelected'])
 
-    points = getPoints();
+    points = getpoints
 
-    careersWithPoints = getCareersWithPoints(points);
+    careers_withpoints = getcareers_with_points(points)
 
-    result = createResultSurvey(data['user'], careersWithPoints);
+    result = create_result_survey(data['user'], careers_withpoints)
 
     { result_id: result.id }.to_json
   end
 
-  def clearCache()
+  def clear_cache
     Response.all.each do |response|
       response.destroy
     end
   end
 
-  def createResponsesFromChoices(choices)
+  def create_responses_from_choices(choices)
     choices.each do |choice|
-      Response.create(choice_id: choice['choiceId'], question_id: choice['questionId'])
+      Response.create(
+        choice_id: choice['choiceId'],
+        question_id: choice['questionId']
+      )
     end
   end
 
-  def getPoints()
+  def getpoints
     outcomes = Outcome.all
     responses = Response.all
 
-    careersPoints = {}
+    careers_points = {}
 
     responses.each do |response|
       outcomes.each do |outcome|
-        if outcome.choice_id == response.choice_id
-            careersPoints[outcome.career_id] = careersPoints[outcome.career_id].to_i + 1
-        end
+        careers_points[outcome.career_id] = careers_points[outcome.career_id].to_i + 1 if outcome.choice_id == response.choice_id
       end
     end
 
-    return careersPoints
+    careers_points
   end
 
-  def getCareersWithPoints(careersPoints)
+  def getcareers_with_points(careers_points)
     careers = Career.all
 
     results = []
 
-    careersPoints.each do |key, points|
+    careers_points.each do |key, points|
       careers.each do |career|
-        if key == career.id
-          results.push({career_id: career.id, name: career.name, points: points})
-        end
+        next unless key == career.id
+
+        results.push(
+          { career_id: career.id, name: career.name, points: points }
+        )
       end
     end
 
-    return results
+    results
   end
 
-  def createResultSurvey(user, careersWithPoints)
-    user = User.where(dni: user['dni']).first;
+  def create_result_survey(user, careers_withpoints)
+    user = User.where(dni: user['dni']).first
 
     result = Result.create(user_id: user.id)
 
-    careersWithPoints.map do |careerWithPoint|
+    careers_withpoints.map do |career_withpoint|
       ResultCareer.create(
         result_id: result.id,
-        career_id: careerWithPoint[:career_id],
-        career_points: careerWithPoint[:points]
+        career_id: career_withpoint[:career_id],
+        career_points: career_withpoint[:points]
       )
     end
 
-    return result
+    result
   end
 
   get '/show_survey' do
     @results = ResultCareer.where(result_id: params[:result_id]).all
 
-    careers_ids = @results.map do |result| result[:career_id] end
+    careers_ids = @results.map { |result| result[:career_id] }
 
     @careers = Career.where(id: careers_ids).all
 
@@ -103,26 +107,24 @@ class App < Sinatra::Base
   end
 
   get '/sign_up' do
-    @loginType = 'sign_up'
+    @login_type = 'sign_up'
 
     erb :login_template
   end
 
   get '/sign_in' do
-    @loginType = 'sign_in'
+    @login_type = 'sign_in'
 
     erb :login_template
   end
 
   post '/get_career_score' do
-    careerSelect = JSON.parse request.body.read
+    career_select = JSON.parse request.body.read
 
     count = 0
 
     ResultCareer.all.each do |career|
-      if career.career_id == careerSelect['careerId'].to_i
-        count = count + 1
-      end
+      count += 1 if career.career_id == career_select['careerId'].to_i
     end
 
     { career_score: count }.to_json
@@ -137,14 +139,14 @@ class App < Sinatra::Base
     else
       User.create(username: params[:username], dni: params[:dni], password: params[:password])
 
-      @loginType = 'sign_in'
+      @login_type = 'sign_in'
 
       erb :login_template
     end
   end
 
   get '/complete_sign_in' do
-    user = User.where(dni: params[:dni]).first;
+    user = User.where(dni: params[:dni]).first
 
     if !user
       @error = "El usuario con DNI #{params[:dni]} no existe"
@@ -152,7 +154,7 @@ class App < Sinatra::Base
       erb :error_page
 
     elsif user.password != params[:password]
-      @error = "Password incorrecta"
+      @error = 'Password incorrecta'
 
       erb :error_page
 
@@ -170,28 +172,24 @@ class App < Sinatra::Base
   post '/create_career' do
     career = JSON.parse request.body.read
 
-    saveCarrer(career)
+    save_carrer(career)
   end
 
-  def saveCarrer(career)
-    begin
-      checkCareerIsCreated(career)
+  def save_carrer(career)
+    check_career_is_created(career)
 
-      Career.create(name: career['name'], link: career['link'])
+    Career.create(name: career['name'], link: career['link'])
 
-      { success: "Carrera #{career['name']} creada" }.to_json
-    rescue StandardError => e
-      { error: e.message }.to_json
-    end
+    { success: "Carrera #{career['name']} creada" }.to_json
+  rescue StandardError => e
+    { error: e.message }.to_json
   end
 
-  def checkCareerIsCreated(careerToCreate)
+  def check_career_is_created(career_to_create)
     careers = Career.all
 
     careers.each do |career|
-      if career.name == careerToCreate['name']
-        raise "La carrera #{career.name} ya existe"
-      end
+      raise "La carrera #{career.name} ya existe" if career.name == career_to_create['name']
     end
   end
 end
