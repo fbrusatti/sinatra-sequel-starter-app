@@ -1,3 +1,4 @@
+ 
 ruby '2.6.4'
 source 'https://rubygems.org'
 
@@ -11,3 +12,8 @@ group :development do
   gem 'rerun'
 end
 
+group :test do
+  gem 'minitest'
+  gem 'minitest-color'
+  gem 'rack-test'
+end
