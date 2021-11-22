@@ -116,16 +116,15 @@ class App < Sinatra::Base
 
   post '/get_career_score' do
     careerSelect = JSON.parse request.body.read
-
     count = 0
 
     ResultCareer.all.each do |career|
       if career.career_id == careerSelect['careerId'].to_i
-        count = count + 1
+        count = career.created_at
       end
     end
 
-    { career_score: count }.to_json
+    { career_score: Date.new(count) }.to_json
   end
 
   get '/complete_sign_up' do
