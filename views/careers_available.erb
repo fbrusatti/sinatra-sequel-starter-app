@@ -37,9 +37,9 @@
                                 <a href="<%= career.link %>" target="_blank"> <%= career.name %> </a>
                                 <div style="display:flex; flex-direction: row;" >
                                     <p>desde: </p>
-                                    <input id="dateOne" type="date" style="margin:2px; width : 130px;">
+                                    <input id="dateOne-<%= career.id %>" type="date" style="margin:2px; width : 130px;">
                                     <p>  hasta:</p>
-                                    <input id="dateTwo" type="date" style="margin:2px; width : 130px;">
+                                    <input id="dateTwo-<%= career.id %>" type="date" style="margin:2px; width : 130px;">
                                 </div>
                                 <button data-career-name="<%= career.name %>" data-career-id="<%= career.id %>"   onclick="calculateStatistics(this)" style="margin: 0;">
                                     Ver estadistica
@@ -92,8 +92,9 @@ const saveCareer = async () => {
 
 const calculateStatistics = async ({ dataset: { careerId, careerName } }) => {
     
-    var date = document.getElementById("dateOne").value;
-    
+    var dateStart = document.getElementById(`dateOne-${careerId}`).value;
+    var dateEnd = document.getElementById(`dateTwo-${careerId}`).value;
+
     const response = await fetch('get_career_score', {
         method: 'POST',
         headers: {
@@ -102,7 +103,8 @@ const calculateStatistics = async ({ dataset: { careerId, careerName } }) => {
         },
         body: JSON.stringify({
             careerId,
-            date
+            dateStart,
+            dateEnd
         })
     });
 

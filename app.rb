@@ -118,13 +118,18 @@ class App < Sinatra::Base
     careerSelect = JSON.parse request.body.read
     count = 0
 
+    dateStart = Date.parse(careerSelect['dateStart'])
+    dateEnd = Date.parse(careerSelect['dateEnd'])
+
     ResultCareer.all.each do |career|
       if career.career_id == careerSelect['careerId'].to_i
-        count = career.created_at
+        careerCuestion = DateTime.parse(career.created_at.to_s)
+        if dateStart < careerCuestion  && careerCuestion <= dateEnd  
+          count = count + 1
+        end
       end
     end
-
-    { career_score: Date.new(count) }.to_json
+    { career_score: count }.to_json
   end
 
   get '/complete_sign_up' do
