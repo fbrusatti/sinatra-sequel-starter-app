@@ -116,15 +116,19 @@ class App < Sinatra::Base
 
   post '/get_career_score' do
     careerSelect = JSON.parse request.body.read
-
     count = 0
+
+    dateStart = Date.parse(careerSelect['dateStart'])
+    dateEnd = Date.parse(careerSelect['dateEnd'])
 
     ResultCareer.all.each do |career|
       if career.career_id == careerSelect['careerId'].to_i
-        count = count + 1
+        careerCuestion = DateTime.parse(career.created_at.to_s)
+        if dateStart < careerCuestion  && careerCuestion <= dateEnd  
+          count = count + 1
+        end
       end
     end
-
     { career_score: count }.to_json
   end
 
