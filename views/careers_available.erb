@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>
+            CareersAvailables
+        </title>
+    </head>
+
+    <body class="page">
+        <div id="create-career-box" class="container info" style="margin-left: 40px;">
+            <label for="career-name" class="element">
+                Ingrese nombre de la carrera
+            </label>
+
+            <input type="text" id="career-name" class="element" placeholder="Abogacia"/>
+
+            <label for="career-name" class="element">
+                Si lo desea ingrese link de referencia a la carrera
+            </label>
+
+            <input value="" type="text" id="career-link" class="element" placeholder="www.carrera-ejemplo.com"/>
+
+            <button onclick="saveCareer()">
+                Guardar
+            </button>
+        </div>
+
+        <div class="container">
+            <div class="points">
+                <h2> Carreras disponibles: </h2>
+
+                <ul>
+                    <% @careers.each do |career| %>
+                        <li class="info">
+                            <div class="career-container">
+                                <a href="<%= career.link %>" target="_blank"> <%= career.name %> </a>
+                                <div style="display:flex; flex-direction: row;" >
+                                    <p>desde: </p>
+                                    <input id="dateOne-<%= career.id %>" type="date" style="margin:2px; width : 130px;">
+                                    <p>  hasta:</p>
+                                    <input id="dateTwo-<%= career.id %>" type="date" style="margin:2px; width : 130px;">
+                                </div>
+                                <button data-career-name="<%= career.name %>" data-career-id="<%= career.id %>"   onclick="calculateStatistics(this)" style="margin: 0;">
+                                    Ver estadistica
+                                </button>
+                            </div>
+                        </li>
+                    <% end %>
+                </ul>
+            </div>
+        </div>
+
+        <button onclick="homeTest()">
+            Volver a la pagina principal
+        </button>
+    </body>
+</html>
+
+<script >
+function homeTest() {
+    window.location.href='/';
+}
+
+const saveCareer = async () => {
+    const carrer = {
+        name: document.getElementById("career-name").value,
+        link: document.getElementById("career-link").value
+    }
+
+    if(!carrer.name.length) {
+        alert('Debe ingresar un nombre valido');
+
+        return;
+    }
+
+    const response = await fetch('create_career', {
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(carrer)
+    });
+
+    responseInJson = await response.json();
+
+    const [ responseMessage ] = Object.values(responseInJson);
+
+    alert(responseMessage);
+}
+
+const calculateStatistics = async ({ dataset: { careerId, careerName } }) => {
+    
+    var dateStart = document.getElementById(`dateOne-${careerId}`).value;
+    var dateEnd = document.getElementById(`dateTwo-${careerId}`).value;
+
+    const response = await fetch('get_career_score', {
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            careerId,
+            dateStart,
+            dateEnd
+        })
+    });
+
+    const result = await response.json();
+
+    alert(`La cantidad de apariciones de ${careerName} es ${result.career_score}`);
+}
+</script>
+
+<style>
+.element {
+    margin: 1rem;
+}
+
+input {
+    border-radius: 10px;
+    border: 0;
+    padding: 0.5rem;
+}
+
+#create-career-box {
+    padding: 1rem;
+    display: flex;
+    width: 50%;
+    align-self: center;
+}
+
+li {
+    margin: 1rem 0;
+}
+
+.page {
+background-color: #bdc3c7;
+
+font-family: arial;
+
+color: #ecf0f1;
+
+display: flex;
+flex-direction: column;
+justify-content: center;
+
+}
+.info {
+        margin: 1rem;
+        padding: 1rem;
+        border-radius: 10px;
+        background-color: #ecf0f1;
+
+        font-weight: lighter;
+        font-size: 16px;
+        color: #34495e ;
+        text-align: start;
+}
+
+button {
+        padding: 0.5rem;
+        margin: auto;
+
+        border-radius: 10px;
+
+        background-color: #f39c12;
+
+        border: 1px solid #e67e22;
+
+        color: #2c3e50;
+
+        cursor: pointer;
+
+        font-weight: bold;
+
+        width: 15rem;
+        height: 3rem;
+        cursor: pointer
+}
+.points {
+        width: 70%;
+        margin: auto;
+        padding: 1rem;
+
+        color: #2c3e50;
+        text-align: center;
+        font-size: 1rem;
+    }
+ .container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-content: center;
+    }
+
+.career-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+</style>
